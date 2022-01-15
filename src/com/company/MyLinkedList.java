@@ -86,4 +86,27 @@ public class MyLinkedList {
         LinkedListNode toBeDeleted = temp.getNextNode();
         temp.setNextNode(toBeDeleted.getNextNode());
     }
+    
+    public void insertAfter(LinkedListNode nodeAfterWhichIsInserted, LinkedListNode toBeInserted){
+        if(!exists(nodeAfterWhichIsInserted)){
+            return;
+        }
+
+        LinkedListNode temp = root;
+        LinkedListNode nodeBeforeWhichIsInserted = null;
+
+        while (!temp.equals(nodeAfterWhichIsInserted)) {
+            temp = temp.getNextNode();
+        }
+
+        if(temp.getNextNode()!=null){
+               nodeBeforeWhichIsInserted = temp.getNextNode();
+            }
+
+            temp.setNextNode(toBeInserted);
+
+        if(nodeBeforeWhichIsInserted != null){
+                toBeInserted.setNextNode(nodeBeforeWhichIsInserted);
+            }
+    }
 }
