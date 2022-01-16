@@ -51,17 +51,17 @@ public class MyLinkedList {
         }
     }
 
-    public void removeFirst(){
-        if(root == null || root.getNextNode()==null){
-            root=null;
+    public void removeFirst() {
+        if (root == null || root.getNextNode() == null) {
+            root = null;
         }
-        this.root=root.getNextNode();
+        this.root = root.getNextNode();
     }
 
-    public boolean exists(LinkedListNode node){
+    public boolean exists(LinkedListNode node) {
         LinkedListNode temp = root;
         while (temp != null) {
-            if(temp.equals(node)){
+            if (temp.equals(node)) {
                 return true;
             }
             temp = temp.getNextNode();
@@ -69,12 +69,12 @@ public class MyLinkedList {
         return false;
     }
 
-    public void deleteNode(LinkedListNode node){
-        if(!exists(node)){
+    public void deleteNode(LinkedListNode node) {
+        if (!exists(node)) {
             return;
         }
 
-        if(root.equals(node)){
+        if (root.equals(node)) {
             removeFirst();
             return;
         }
@@ -86,9 +86,9 @@ public class MyLinkedList {
         LinkedListNode toBeDeleted = temp.getNextNode();
         temp.setNextNode(toBeDeleted.getNextNode());
     }
-    
-    public void insertAfter(LinkedListNode nodeAfterWhichIsInserted, LinkedListNode toBeInserted){
-        if(!exists(nodeAfterWhichIsInserted)){
+
+    public void insertAfter(LinkedListNode nodeAfterWhichIsInserted, LinkedListNode toBeInserted) {
+        if (!exists(nodeAfterWhichIsInserted)) {
             return;
         }
 
@@ -99,14 +99,12 @@ public class MyLinkedList {
             temp = temp.getNextNode();
         }
 
-        if(temp.getNextNode()!=null){
-               nodeBeforeWhichIsInserted = temp.getNextNode();
-            }
+        if (temp.getNextNode() != null) {
+            nodeBeforeWhichIsInserted = temp.getNextNode();
+        }
 
-            temp.setNextNode(toBeInserted);
+        temp.setNextNode(toBeInserted);
 
-        if(nodeBeforeWhichIsInserted != null){
-                toBeInserted.setNextNode(nodeBeforeWhichIsInserted);
-            }
+        toBeInserted.setNextNode(nodeBeforeWhichIsInserted);
     }
 }
