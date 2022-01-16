@@ -93,16 +93,13 @@ public class MyLinkedList {
         }
 
         LinkedListNode temp = root;
-        LinkedListNode nodeBeforeWhichIsInserted = null;
 
         while (!temp.equals(nodeAfterWhichIsInserted)) {
             temp = temp.getNextNode();
         }
 
-        if (temp.getNextNode() != null) {
-            nodeBeforeWhichIsInserted = temp.getNextNode();
-        }
-
+        LinkedListNode nodeBeforeWhichIsInserted = temp.getNextNode();
+        
         temp.setNextNode(toBeInserted);
 
         toBeInserted.setNextNode(nodeBeforeWhichIsInserted);
