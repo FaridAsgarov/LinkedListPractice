@@ -4,27 +4,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        LinkedListNode rootNode = new LinkedListNode(1, null);
-//        LinkedListNode nextNode = new LinkedListNode(2, null);
-//        LinkedListNode nextNextNode = new LinkedListNode(3, null);
-//
-//        rootNode.setNextNode(nextNode);
-//        nextNode.setNextNode(nextNextNode);
-
         MyLinkedList myLinkedList = new MyLinkedList(1);
         myLinkedList.addNextNode(new LinkedListNode(2));
         myLinkedList.addNextNode(new LinkedListNode(3));
         myLinkedList.addNextNode(new LinkedListNode(4));
+        myLinkedList.addNextNode(new LinkedListNode(5));
 
 
         myLinkedList.printNodeValues();
-        myLinkedList.deleteNode(new LinkedListNode(3));
+        myLinkedList.insertAfter(new LinkedListNode(1),new LinkedListNode(7)); //inserts node 7 after 1st position
         myLinkedList.printNodeValues();
-        myLinkedList.deleteNode(new LinkedListNode(7));
+        myLinkedList.insertAfter(new LinkedListNode(3),new LinkedListNode(8)); //inserts node 8 after 4th position
         myLinkedList.printNodeValues();
-        myLinkedList.deleteNode(new LinkedListNode(1));
-        myLinkedList.printNodeValues();
-        myLinkedList.deleteNode(new LinkedListNode(4));
+        myLinkedList.insertAfter(new LinkedListNode(5),new LinkedListNode(9)); //inserts node 9 after last position
         myLinkedList.printNodeValues();
     }
 }
