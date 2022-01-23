@@ -1,4 +1,4 @@
-package com.company;
+package com.asgarov.linkedlist;
 
 public class MyLinkedList {
     private LinkedListNode root;
@@ -7,17 +7,21 @@ public class MyLinkedList {
         this.root = new LinkedListNode(rootInt);
     }
 
-    public void addNextNode(LinkedListNode nextNode) {
-        LinkedListNode temp = getLastNode();
+    public void add(LinkedListNode nextNode) {
+        LinkedListNode temp = getLast();
         temp.setNextNode(nextNode);
     }
 
-    public void insertNodeFromStart(LinkedListNode firstToBe) {
+    public void addFirst(LinkedListNode firstToBe) {
         firstToBe.setNextNode(root);
         root = firstToBe;
     }
 
-    private LinkedListNode getLastNode() {
+    protected LinkedListNode getFirst() {
+        return root;
+    }
+
+    protected LinkedListNode getLast() {
         LinkedListNode temp = root;
         while (temp.getNextNode() != null) {
             temp = temp.getNextNode();
@@ -25,7 +29,7 @@ public class MyLinkedList {
         return temp;
     }
 
-    public void printNodeValues() {
+    public void printAll() {
         LinkedListNode temp = root;
         while (temp != null) {
             System.out.println(temp.getValue());
@@ -34,7 +38,7 @@ public class MyLinkedList {
         System.out.println();
     }
 
-    private LinkedListNode getBeforeLastNode() {
+    private LinkedListNode getBeforeLast() {
         LinkedListNode temp = root;
         while (temp.getNextNode().getNextNode() != null) {
             temp = temp.getNextNode();
@@ -42,11 +46,11 @@ public class MyLinkedList {
         return temp;
     }
 
-    public void removeLastNode() {
+    public void removeLast() {
         if (root == null || root.getNextNode() == null) {
             root = null;
         } else {
-            LinkedListNode beforeLastNode = getBeforeLastNode();
+            LinkedListNode beforeLastNode = getBeforeLast();
             beforeLastNode.setNextNode(null);
         }
     }
@@ -69,7 +73,7 @@ public class MyLinkedList {
         return false;
     }
 
-    public void deleteNode(LinkedListNode node) {
+    public void remove(LinkedListNode node) {
         if (!exists(node)) {
             return;
         }
@@ -87,19 +91,19 @@ public class MyLinkedList {
         temp.setNextNode(toBeDeleted.getNextNode());
     }
 
-    public void insertAfter(LinkedListNode nodeAfterWhichIsInserted, LinkedListNode toBeInserted) {
-        if (!exists(nodeAfterWhichIsInserted)) {
+    public void insertAfter(LinkedListNode insertAfterThisPosition, LinkedListNode toBeInserted) {
+        if (!exists(insertAfterThisPosition)) {
             return;
         }
 
         LinkedListNode temp = root;
 
-        while (!temp.equals(nodeAfterWhichIsInserted)) {
+        while (!temp.equals(insertAfterThisPosition)) {
             temp = temp.getNextNode();
         }
 
         LinkedListNode nodeBeforeWhichIsInserted = temp.getNextNode();
-        
+
         temp.setNextNode(toBeInserted);
 
         toBeInserted.setNextNode(nodeBeforeWhichIsInserted);

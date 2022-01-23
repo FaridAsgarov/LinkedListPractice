@@ -1,4 +1,4 @@
-package com.company;
+package com.asgarov.linkedlist;
 
 import java.util.Objects;
 
