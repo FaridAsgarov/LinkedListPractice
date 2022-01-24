@@ -150,4 +150,27 @@ public class MyLinkedList {
 
         toBeInserted.setNextNode(nodeBeforeWhichIsInserted);
     }
+
+    /**
+     * Time Complexity is O(n)
+     * because the reverseList() goes through N quantity of nodes in the original Linked list
+     * and then performs addFirst() method which is a constant time operation on each element
+     * and runs through the linked list again to remove the unnecessary last node
+     **/
+    public MyLinkedList reverseList() {
+        LinkedListNode newRoot = getLast();
+        MyLinkedList reversedList = new MyLinkedList(0);
+
+        LinkedListNode temp = root;
+
+        while (temp.getNextNode() != null) {
+            reversedList.addFirst(new LinkedListNode(temp.getValue()));
+            temp = temp.getNextNode();
+        }
+
+        reversedList.addFirst(new LinkedListNode(newRoot.getValue()));
+        reversedList.removeLast();
+
+        return reversedList;
+    }
 }
