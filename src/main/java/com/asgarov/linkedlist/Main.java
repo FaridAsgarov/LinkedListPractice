@@ -11,7 +11,7 @@ public class Main {
         myLinkedList.add(new LinkedListNode(5));
 
         myLinkedList.printAll();
-        myLinkedList = myLinkedList.reverseList();
+        myLinkedList.reverseCyclic();
         myLinkedList.printAll();
     }
 }

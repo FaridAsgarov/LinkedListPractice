@@ -173,4 +173,42 @@ public class MyLinkedList {
 
         return reversedList;
     }
+
+    /**
+     * Time Complexity is O(n)
+     * because the reverseCyclic() goes through N quantity of nodes in the original Linked list
+     * and then performs setNextNode() method which is a constant time operation on each element
+     * and runs through the linked list again to remove the unnecessary last node
+     **/
+    public void reverseCyclic() {
+        LinkedListNode temp = root;
+        LinkedListNode toBeSetAsNext = null;
+        while (temp != null) {
+            LinkedListNode nextForIteration = temp.getNextNode();
+
+            temp.setNextNode(toBeSetAsNext);
+            toBeSetAsNext = temp;
+
+            temp = nextForIteration;
+        }
+
+        root = toBeSetAsNext;
+    }
+
+    /**
+     * Has to be called with as reverse(null, root)
+     * @param node
+     * @param next
+     */
+    private void reverse(LinkedListNode node, LinkedListNode next) {
+        if (next == null) {
+            this.root = node;
+            return;
+        }
+
+        reverse(next, next.getNextNode());
+        next.setNextNode(node);
+    }
 }
+
+
