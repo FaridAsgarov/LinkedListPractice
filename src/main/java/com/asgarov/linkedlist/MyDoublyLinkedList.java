@@ -1,45 +1,47 @@
 package com.asgarov.linkedlist;
 
-public class MyLinkedList {
-    private LinkedListNode root;
+public class MyDoublyLinkedList {
+    private DoublyLinkedListNode root;
 
     /**
      * constructor has a time-complexity of O(1) because it only makes a single operation
      **/
-    public MyLinkedList(int rootInt) {
-        this.root = new LinkedListNode(rootInt);
+    public MyDoublyLinkedList(int rootInt) {
+        this.root = new DoublyLinkedListNode(rootInt);
     }
 
     /**
      * 1) total time complexity of the add() is O(n)
      * 2) because add() includes a protected getLast() method which has time complexity of O(n) as explained in the accompanying comment
-     * 3) it also has a setNextNode() which is a constant time operation of O(1)
+     * 3) it also has a setNextNode() and setPrevNode() which are 2 constant time operations of O(1)
      **/
-    public void add(LinkedListNode nextNode) {
-        LinkedListNode temp = getLast();
+    public void add(DoublyLinkedListNode nextNode) {
+        DoublyLinkedListNode temp = getLast();
         temp.setNextNode(nextNode);
+        nextNode.setPrevNode(temp);
     }
 
     /**
-     * Time complexity is O(1) because addFirst() includes 2 constant time operations
+     * Time complexity is O(1) because addFirst() includes 3 constant time operations
      **/
-    public void addFirst(LinkedListNode firstToBe) {
+    public void addFirst(DoublyLinkedListNode firstToBe) {
         firstToBe.setNextNode(root);
+        root.setPrevNode(firstToBe);
         root = firstToBe;
     }
 
     /**
      * Time complexity is O(1) - 1 constant time operation
      **/
-    protected LinkedListNode getFirst() {
+    protected DoublyLinkedListNode getFirst() {
         return root;
     }
 
     /**
      * time complexity of O(n) because getLast() has to iterate through N sized linkedList to find the last
      **/
-    protected LinkedListNode getLast() {
-        LinkedListNode temp = root;
+    protected DoublyLinkedListNode getLast() {
+        DoublyLinkedListNode temp = root;
         while (temp.getNextNode() != null) {
             temp = temp.getNextNode();
         }
@@ -47,11 +49,11 @@ public class MyLinkedList {
     }
 
     /**
-     * Should be a total time-complexity of O(n)
-     * because sout has a time-complexity of O(1) * by N quantity of linked nodes
+     * Total time-complexity of O(n)
+     * because it has to call System.out.println() * by N quantity of linked nodes
      **/
     public void printAll() {
-        LinkedListNode temp = root;
+        DoublyLinkedListNode temp = root;
         while (temp != null) {
             System.out.println(temp.getValue());
             temp = temp.getNextNode();
@@ -59,8 +61,8 @@ public class MyLinkedList {
         System.out.println();
     }
 
-    private LinkedListNode getBeforeLast() {
-        LinkedListNode temp = root;
+    private DoublyLinkedListNode getBeforeLast() {
+        DoublyLinkedListNode temp = root;
         while (temp.getNextNode().getNextNode() != null) {
             temp = temp.getNextNode();
         }
@@ -74,7 +76,7 @@ public class MyLinkedList {
         if (root == null || root.getNextNode() == null) {
             root = null;
         } else {
-            LinkedListNode beforeLastNode = getBeforeLast();
+            DoublyLinkedListNode beforeLastNode = getBeforeLast();
             beforeLastNode.setNextNode(null);
         }
     }
@@ -92,8 +94,8 @@ public class MyLinkedList {
     /**
      * time complexity of O(n) because exists() has to potentially iterate through N sized linkedList to find the required node
      **/
-    public boolean exists(LinkedListNode node) {
-        LinkedListNode temp = root;
+    public boolean exists(DoublyLinkedListNode node) {
+        DoublyLinkedListNode temp = root;
         while (temp != null) {
             if (temp.equals(node)) {
                 return true;
@@ -109,7 +111,7 @@ public class MyLinkedList {
      * Additionally, it performs another run through the linked list - which is another O(n)
      * Plus multiple constant time O(1) operations are required afterwards to remove the node
      **/
-    public void remove(LinkedListNode node) {
+    public void remove(DoublyLinkedListNode node) {
         if (!exists(node)) {
             return;
         }
@@ -119,12 +121,13 @@ public class MyLinkedList {
             return;
         }
 
-        LinkedListNode temp = root;
+        DoublyLinkedListNode temp = root;
         while (!temp.getNextNode().equals(node)) {
             temp = temp.getNextNode();
         }
-        LinkedListNode toBeDeleted = temp.getNextNode();
+        DoublyLinkedListNode toBeDeleted = temp.getNextNode();
         temp.setNextNode(toBeDeleted.getNextNode());
+        toBeDeleted.getNextNode().setPrevNode(temp);
     }
 
     /**
@@ -133,22 +136,24 @@ public class MyLinkedList {
      * Additionally, it performs another run through the linked list - which is another O(n)
      * then it performs constant time operations O(1) to set the node after the right position
      **/
-    public void insertAfter(LinkedListNode insertAfterThisPosition, LinkedListNode toBeInserted) {
+    public void insertAfter(DoublyLinkedListNode insertAfterThisPosition, DoublyLinkedListNode toBeInserted) {
         if (!exists(insertAfterThisPosition)) {
             return;
         }
 
-        LinkedListNode temp = root;
+        DoublyLinkedListNode temp = root;
 
         while (!temp.equals(insertAfterThisPosition)) {
             temp = temp.getNextNode();
         }
 
-        LinkedListNode nodeBeforeWhichIsInserted = temp.getNextNode();
+        DoublyLinkedListNode nodeBeforeWhichIsInserted = temp.getNextNode();
 
         temp.setNextNode(toBeInserted);
+        toBeInserted.setPrevNode(temp);
 
         toBeInserted.setNextNode(nodeBeforeWhichIsInserted);
+        nodeBeforeWhichIsInserted.setPrevNode(toBeInserted);
     }
 
     /**
@@ -157,18 +162,18 @@ public class MyLinkedList {
      * and then performs addFirst() method which is a constant time operation on each element
      * and runs through the linked list again to remove the unnecessary last node
      **/
-    public MyLinkedList reverseList() {
-        LinkedListNode newRoot = getLast();
-        MyLinkedList reversedList = new MyLinkedList(0);
+    public MyDoublyLinkedList reverseList() {
+        DoublyLinkedListNode newRoot = getLast();
+        MyDoublyLinkedList reversedList = new MyDoublyLinkedList(0);
 
-        LinkedListNode temp = root;
+        DoublyLinkedListNode temp = root;
 
         while (temp.getNextNode() != null) {
-            reversedList.addFirst(new LinkedListNode(temp.getValue()));
+            reversedList.addFirst(new DoublyLinkedListNode(temp.getValue()));
             temp = temp.getNextNode();
         }
 
-        reversedList.addFirst(new LinkedListNode(newRoot.getValue()));
+        reversedList.addFirst(new DoublyLinkedListNode(newRoot.getValue()));
         reversedList.removeLast();
 
         return reversedList;
@@ -181,10 +186,10 @@ public class MyLinkedList {
      * and runs through the linked list again to remove the unnecessary last node
      **/
     public void reverseCyclic() {
-        LinkedListNode temp = root;
-        LinkedListNode toBeSetAsNext = null;
+        DoublyLinkedListNode temp = root;
+        DoublyLinkedListNode toBeSetAsNext = null;
         while (temp != null) {
-            LinkedListNode nextForIteration = temp.getNextNode();
+            DoublyLinkedListNode nextForIteration = temp.getNextNode();
 
             temp.setNextNode(toBeSetAsNext);
             toBeSetAsNext = temp;
@@ -200,7 +205,7 @@ public class MyLinkedList {
      * @param node
      * @param next
      */
-    private void reverse(LinkedListNode node, LinkedListNode next) {
+    private void reverse(DoublyLinkedListNode node, DoublyLinkedListNode next) {
         if (next == null) {
             this.root = node;
             return;
