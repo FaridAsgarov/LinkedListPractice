@@ -98,6 +98,24 @@ class MyDoublyLinkedListTest {
                 "\r\n", outContent.toString());
     }
 
+    @Test
+    public void reverseList(){
+        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3,4,5));
+        MyDoublyLinkedList = MyDoublyLinkedList.reverseList();
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        MyDoublyLinkedList.printAll();
+
+        assertEquals("5\r\n" +
+                "4\r\n" +
+                "3\r\n" +
+                "2\r\n" +
+                "1\r\n" +
+                "\r\n", outContent.toString());
+    }
+
     private MyDoublyLinkedList getMyDoublyLinkedList(List<Integer> values) {
         MyDoublyLinkedList MyDoublyLinkedList = new MyDoublyLinkedList(values.get(0));
 
