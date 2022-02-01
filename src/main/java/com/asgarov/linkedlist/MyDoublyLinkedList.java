@@ -61,6 +61,7 @@ public class MyDoublyLinkedList {
         System.out.println();
     }
 
+    //Simplified the previous method code greatly by replacing it with this line, works perfectly, many thanks to awesome reviewer
     private DoublyLinkedListNode getBeforeLast() {
         return getLast().getPrevNode();
     }
@@ -84,8 +85,6 @@ public class MyDoublyLinkedList {
         }
     }
 
-
-
     /**
      * time complexity of O(n) because exists() has to potentially iterate through N sized linkedList to find the required node
      **/
@@ -100,6 +99,7 @@ public class MyDoublyLinkedList {
         return false;
     }
 
+    //Added my best attempt for Recursive Exists() method
     /**
      * time complexity same as Exists() because it will keep running the method until it
      * either runs through the N number of elements or it hits the end by reaching a null
