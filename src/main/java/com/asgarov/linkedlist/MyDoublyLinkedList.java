@@ -99,22 +99,19 @@ public class MyDoublyLinkedList {
         return false;
     }
 
-    //Added my best attempt for Recursive Exists() method
+    private boolean existsRecursive(DoublyLinkedListNode startSearchFrom, DoublyLinkedListNode nodeToBeSearched) {
+        if (startSearchFrom == null) {
+            return false;
+        }
+        return startSearchFrom.equals(nodeToBeSearched) || existsRecursive(startSearchFrom.getNextNode(), nodeToBeSearched);
+    }
+
     /**
      * time complexity same as Exists() because it will keep running the method until it
      * either runs through the N number of elements or it hits the end by reaching a null
      **/
-    public boolean existsRecursive(DoublyLinkedListNode startSearchFrom, DoublyLinkedListNode nodeToBeSearched) {
-        while (startSearchFrom != null) {
-            if (startSearchFrom.equals(nodeToBeSearched)) {
-                return true;
-            }
-
-            startSearchFrom = startSearchFrom.getNextNode();
-
-            existsRecursive(startSearchFrom, nodeToBeSearched);
-        }
-        return false;
+    public boolean existsRecursive(DoublyLinkedListNode nodeToBeSearched) {
+        return existsRecursive(root, nodeToBeSearched);
     }
 
     /**
@@ -191,9 +188,6 @@ public class MyDoublyLinkedList {
         return reversedList;
     }
 
-    //TODO "forgetting to update the prevs. To avoid this issue you create a test
-    // that iterates the list all the way to end and the back again."
-
     /**
      * Time Complexity is O(n)
      * because the reverseCyclic() goes through N quantity of nodes in the original Linked list
@@ -207,15 +201,17 @@ public class MyDoublyLinkedList {
             DoublyLinkedListNode nextForIteration = temp.getNextNode();
 
             temp.setNextNode(toBeSetAsNext);
+            if (toBeSetAsNext != null) {
+                toBeSetAsNext.setPrevNode(temp);
+            }
             toBeSetAsNext = temp;
 
             temp = nextForIteration;
         }
 
         root = toBeSetAsNext;
+        root.setPrevNode(null);
     }
-
-    //TODO "forgetting to update prev as well."
 
     /**
      * Has to be called with as reverse(null, root)
@@ -223,14 +219,19 @@ public class MyDoublyLinkedList {
      * @param node
      * @param next
      */
-    private void reverse(DoublyLinkedListNode node, DoublyLinkedListNode next) {
+
+    public void reverse(DoublyLinkedListNode node, DoublyLinkedListNode next) {
         if (next == null) {
             this.root = node;
+            root.setPrevNode(null);
             return;
         }
 
         reverse(next, next.getNextNode());
         next.setNextNode(node);
+        if (node != null) {
+            node.setPrevNode(next);
+        }
     }
 }
 

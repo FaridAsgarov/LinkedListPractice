@@ -11,86 +11,86 @@ import static org.junit.jupiter.api.Assertions.*;
 class MyDoublyLinkedListTest {
     @Test
     public void testAdd() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2));
 
-        assertEquals(2, MyDoublyLinkedList.getLast().getValue());
+        assertEquals(2, myDoublyLinkedList.getLast().getValue());
     }
 
     @Test
     public void testRemoveLast() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3));
 
-        MyDoublyLinkedList.removeLast();
+        myDoublyLinkedList.removeLast();
 
-        assertEquals(2, MyDoublyLinkedList.getLast().getValue());
+        assertEquals(2, myDoublyLinkedList.getLast().getValue());
     }
 
     @Test
     public void testAddFirst() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3));
 
         DoublyLinkedListNode newFirstNode = new DoublyLinkedListNode(7);
-        MyDoublyLinkedList.addFirst(newFirstNode);
+        myDoublyLinkedList.addFirst(newFirstNode);
 
-        assertNotEquals(newFirstNode, MyDoublyLinkedList.getLast());
-        assertEquals(newFirstNode, MyDoublyLinkedList.getFirst());
+        assertNotEquals(newFirstNode, myDoublyLinkedList.getLast());
+        assertEquals(newFirstNode, myDoublyLinkedList.getFirst());
     }
 
     @Test
     public void testRemoveFirst() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3));
-        MyDoublyLinkedList.removeFirst();
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3));
+        myDoublyLinkedList.removeFirst();
 
-        assertEquals(2, MyDoublyLinkedList.getFirst().getValue());
+        assertEquals(2, myDoublyLinkedList.getFirst().getValue());
     }
 
     @Test
     public void testRemove() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3,4));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3, 4));
 
-        MyDoublyLinkedList.remove(new DoublyLinkedListNode(3));
+        myDoublyLinkedList.remove(new DoublyLinkedListNode(3));
 
-        assertFalse(MyDoublyLinkedList.exists(new DoublyLinkedListNode(3)));
+        assertFalse(myDoublyLinkedList.exists(new DoublyLinkedListNode(3)));
     }
 
     @Test
     public void testExists() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3));
 
-        assertFalse(MyDoublyLinkedList.exists(new DoublyLinkedListNode(99)));
-        assertTrue(MyDoublyLinkedList.exists(new DoublyLinkedListNode(1)));
+        assertFalse(myDoublyLinkedList.exists(new DoublyLinkedListNode(99)));
+        assertTrue(myDoublyLinkedList.exists(new DoublyLinkedListNode(1)));
     }
 
     //NewTest for Recursive Exists method
     @Test
     public void testExistsRecursive() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3));
 
-        assertFalse(MyDoublyLinkedList.existsRecursive(new DoublyLinkedListNode(1),new DoublyLinkedListNode(99)));
-        assertTrue(MyDoublyLinkedList.existsRecursive(new DoublyLinkedListNode(1),new DoublyLinkedListNode(1)));
+        assertFalse(myDoublyLinkedList.existsRecursive(new DoublyLinkedListNode(99)));
+        assertTrue(myDoublyLinkedList.existsRecursive(new DoublyLinkedListNode(1)));
     }
 
     @Test
     public void testInsertAfter() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3));
 
         DoublyLinkedListNode nodeToBeInserted = new DoublyLinkedListNode(7);
 
-        DoublyLinkedListNode nodeToBeInsertedAfter = MyDoublyLinkedList.getFirst().getNextNode();
-        MyDoublyLinkedList.insertAfter(nodeToBeInsertedAfter, nodeToBeInserted);
+        DoublyLinkedListNode nodeToBeInsertedAfter = myDoublyLinkedList.getFirst().getNextNode();
+        myDoublyLinkedList.insertAfter(nodeToBeInsertedAfter, nodeToBeInserted);
 
-        assertTrue(nodeToBeInsertedAfter.getNextNode().equals(nodeToBeInserted));
+        assertEquals(nodeToBeInsertedAfter.getNextNode(), nodeToBeInserted);
 
     }
 
     @Test
     public void testPrintAll() {
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3));
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3));
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        MyDoublyLinkedList.printAll();
+        myDoublyLinkedList.printAll();
 
         assertEquals("1\r\n" +
                 "2\r\n" +
@@ -99,14 +99,14 @@ class MyDoublyLinkedListTest {
     }
 
     @Test
-    public void reverseList(){
-        MyDoublyLinkedList MyDoublyLinkedList = getMyDoublyLinkedList(List.of(1,2,3,4,5));
-        MyDoublyLinkedList = MyDoublyLinkedList.reverseList();
+    public void reverseList() {
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3, 4, 5));
+        myDoublyLinkedList = myDoublyLinkedList.reverseList();
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        MyDoublyLinkedList.printAll();
+        myDoublyLinkedList.printAll();
 
         assertEquals("5\r\n" +
                 "4\r\n" +
@@ -116,14 +116,64 @@ class MyDoublyLinkedListTest {
                 "\r\n", outContent.toString());
     }
 
+    @Test
+    public void testReverseCyclic() {
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3, 4, 5));
+        myDoublyLinkedList.reverseCyclic();
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        myDoublyLinkedList.printAll();
+
+        assertEquals("5\r\n" +
+                "4\r\n" +
+                "3\r\n" +
+                "2\r\n" +
+                "1\r\n" +
+                "\r\n", outContent.toString());
+
+
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode(),new DoublyLinkedListNode(2));
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode().getPrevNode(),new DoublyLinkedListNode(3));
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode().getPrevNode().getPrevNode(),new DoublyLinkedListNode(4));
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode().getPrevNode().getPrevNode().getPrevNode(),new DoublyLinkedListNode(5));
+        assertNull(myDoublyLinkedList.getLast().getPrevNode().getPrevNode().getPrevNode().getPrevNode().getPrevNode());
+    }
+
+    @Test
+    public void testReverse() {
+        MyDoublyLinkedList myDoublyLinkedList = getMyDoublyLinkedList(List.of(1, 2, 3, 4, 5));
+        myDoublyLinkedList.reverse(null, myDoublyLinkedList.getFirst());
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        myDoublyLinkedList.printAll();
+
+        assertEquals("5\r\n" +
+                "4\r\n" +
+                "3\r\n" +
+                "2\r\n" +
+                "1\r\n" +
+                "\r\n", outContent.toString());
+
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode(),new DoublyLinkedListNode(2));
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode().getPrevNode(),new DoublyLinkedListNode(3));
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode().getPrevNode().getPrevNode(),new DoublyLinkedListNode(4));
+        assertEquals(myDoublyLinkedList.getLast().getPrevNode().getPrevNode().getPrevNode().getPrevNode(),new DoublyLinkedListNode(5));
+        assertNull(myDoublyLinkedList.getLast().getPrevNode().getPrevNode().getPrevNode().getPrevNode().getPrevNode());
+
+    }
+
     private MyDoublyLinkedList getMyDoublyLinkedList(List<Integer> values) {
-        MyDoublyLinkedList MyDoublyLinkedList = new MyDoublyLinkedList(values.get(0));
+        MyDoublyLinkedList myDoublyLinkedList = new MyDoublyLinkedList(values.get(0));
 
         for (int i = 1; i < values.size(); i++) {
-            MyDoublyLinkedList.add(new DoublyLinkedListNode(values.get(i)));
+            myDoublyLinkedList.add(new DoublyLinkedListNode(values.get(i)));
         }
 
-        return MyDoublyLinkedList;
+        return myDoublyLinkedList;
     }
 
 
