@@ -61,21 +61,16 @@ public class MyDoublyLinkedList {
         System.out.println();
     }
 
+    //Simplified the previous method code greatly by replacing it with this line, works perfectly, many thanks to awesome reviewer
     private DoublyLinkedListNode getBeforeLast() {
-        DoublyLinkedListNode temp = root;
-        while (temp.getNextNode().getNextNode() != null) {
-            temp = temp.getNextNode();
-        }
-        return temp;
+        return getLast().getPrevNode();
     }
 
     /**
      * time complexity of O(n) because removeLast() has to iterate through N sized linkedList to find the last and then null it
      **/
     public void removeLast() {
-        if (root == null || root.getNextNode() == null) {
-            root = null;
-        } else {
+        if (root != null) {
             DoublyLinkedListNode beforeLastNode = getBeforeLast();
             beforeLastNode.setNextNode(null);
         }
@@ -85,10 +80,9 @@ public class MyDoublyLinkedList {
      * Time complexity is O(1) because removeFirst() includes 2 constant time operations
      **/
     public void removeFirst() {
-        if (root == null || root.getNextNode() == null) {
-            root = null;
+        if (root != null) {
+            this.root = root.getNextNode();
         }
-        this.root = root.getNextNode();
     }
 
     /**
@@ -103,6 +97,21 @@ public class MyDoublyLinkedList {
             temp = temp.getNextNode();
         }
         return false;
+    }
+
+    private boolean existsRecursive(DoublyLinkedListNode startSearchFrom, DoublyLinkedListNode nodeToBeSearched) {
+        if (startSearchFrom == null) {
+            return false;
+        }
+        return startSearchFrom.equals(nodeToBeSearched) || existsRecursive(startSearchFrom.getNextNode(), nodeToBeSearched);
+    }
+
+    /**
+     * time complexity same as Exists() because it will keep running the method until it
+     * either runs through the N number of elements or it hits the end by reaching a null
+     **/
+    public boolean existsRecursive(DoublyLinkedListNode nodeToBeSearched) {
+        return existsRecursive(root, nodeToBeSearched);
     }
 
     /**
@@ -192,27 +201,37 @@ public class MyDoublyLinkedList {
             DoublyLinkedListNode nextForIteration = temp.getNextNode();
 
             temp.setNextNode(toBeSetAsNext);
+            if (toBeSetAsNext != null) {
+                toBeSetAsNext.setPrevNode(temp);
+            }
             toBeSetAsNext = temp;
 
             temp = nextForIteration;
         }
 
         root = toBeSetAsNext;
+        root.setPrevNode(null);
     }
 
     /**
      * Has to be called with as reverse(null, root)
+     *
      * @param node
      * @param next
      */
-    private void reverse(DoublyLinkedListNode node, DoublyLinkedListNode next) {
+
+    public void reverse(DoublyLinkedListNode node, DoublyLinkedListNode next) {
         if (next == null) {
             this.root = node;
+            root.setPrevNode(null);
             return;
         }
 
         reverse(next, next.getNextNode());
         next.setNextNode(node);
+        if (node != null) {
+            node.setPrevNode(next);
+        }
     }
 }
 
